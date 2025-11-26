@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Critic;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+       $this->call([
+            LanguagesSeeder::class,
+            FilmsSeeder::class,
+            ActorsSeeder::class,
+            ActorFilmSeeder::class,
         ]);
+
+        User::factory(10)->has(Critic::factory(30))->create();
     }
 }
