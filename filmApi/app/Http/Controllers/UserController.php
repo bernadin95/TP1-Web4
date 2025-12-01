@@ -14,6 +14,40 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
+     /**
+ * @OA\Post(
+ *     path="/users",
+ *     summary="Créer un utilisateur",
+ *     tags={"Users"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="login", type="string", example="bdje"),
+ *             @OA\Property(property="email", type="string", example="bdje@example.com"),
+ *             @OA\Property(property="password", type="string", example="Secret123!"),
+ *             @OA\Property(property="first_name", type="string", example="Bernadin"),
+ *             @OA\Property(property="last_name", type="string", example="Dje")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Utilisateur créé avec succès",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="login", type="string", example="bdje"),
+ *             @OA\Property(property="email", type="string", example="bdje@example.com"),
+ *             @OA\Property(property="first_name", type="string", example="Bernadin"),
+ *             @OA\Property(property="last_name", type="string", example="Dje")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Erreur de validation"
+ *     )
+ * )
+ */
      public function store(StoreUserRequest $request): JsonResponse
     {
         $user = User::create($request->validated());
@@ -23,6 +57,50 @@ class UserController extends Controller
             ->setStatusCode(201);
     }
 
+    /**
+ * @OA\Put(
+ *     path="/users/{id}",
+ *     summary="Mettre à jour un utilisateur",
+ *     tags={"Users"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID de l'utilisateur"
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="login", type="string", example="btra"),
+ *             @OA\Property(property="email", type="string", example="btra@example.com"),
+ *             @OA\Property(property="password", type="string", example="NewSecret123!"),
+ *             @OA\Property(property="first_name", type="string", example="Bi"),
+ *             @OA\Property(property="last_name", type="string", example="Tra")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Utilisateur mis à jour",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="login", type="string", example="btra"),
+ *             @OA\Property(property="email", type="string", example="btra@example.com"),
+ *             @OA\Property(property="first_name", type="string", example="Bi"),
+ *             @OA\Property(property="last_name", type="string", example="Tra")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Utilisateur introuvable"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Erreur de validation"
+ *     )
+ * )
+ */
    public function update(UpdateUserRequest $request, User $user): JsonResponse
     {
         $data = $request->validated();
@@ -40,6 +118,33 @@ class UserController extends Controller
             ->setStatusCode(200);
     }
 
+        /**
+     * @OA\Get(
+     *     path="/users/{id}/preferred-language",
+     *     summary="Recevoir le langage préféré d’un utilisateur",
+     *     description="Analyse les critiques de l'utilisateur pour déterminer son langage le plus utilisé.",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de l'utilisateur",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Langage préféré",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="language", type="string", example="fr")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Utilisateur introuvable"
+     *     )
+     * )
+     */
     public function preferredLanguage(User $user): JsonResponse
     {
         $row = $user->critics()

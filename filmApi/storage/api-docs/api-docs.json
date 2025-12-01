@@ -1,0 +1,636 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Film API",
+        "description": "API de gestion des films, acteurs, critiques et utilisateurs",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/critics/{id}": {
+            "delete": {
+                "tags": [
+                    "Critics"
+                ],
+                "summary": "Supprimer une critique",
+                "operationId": "791256020eb951289869f5eef122da5b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la critique",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Critique supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Critique supprimée avec succès"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Critique introuvable"
+                    }
+                }
+            }
+        },
+        "/films": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Retourne la liste de tous les films",
+                "operationId": "6f65b2a58d7d23ba8303a3417286ca1e",
+                "responses": {
+                    "200": {
+                        "description": "Liste des films",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "ACADEMY DINOSAUR"
+                                            },
+                                            "release_year": {
+                                                "type": "integer",
+                                                "example": 2006
+                                            },
+                                            "length": {
+                                                "type": "integer",
+                                                "example": 86
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "A Epic Drama of a Feminist..."
+                                            },
+                                            "rating": {
+                                                "type": "string",
+                                                "example": "PG"
+                                            },
+                                            "language_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "special_features": {
+                                                "type": "string",
+                                                "example": "Deleted Scenes,Behind the Scenes"
+                                            },
+                                            "image": {
+                                                "type": "string",
+                                                "example": "",
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/films/{id}/actors": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Retourne les acteurs d'un film",
+                "operationId": "6585262d4bb8eabaa2c2329ca7a21217",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du film",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des acteurs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "first_name": {
+                                                "type": "string",
+                                                "example": "PENELOPE"
+                                            },
+                                            "last_name": {
+                                                "type": "string",
+                                                "example": "GUINESS"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Film introuvable"
+                    }
+                }
+            }
+        },
+        "/films/{id}/with-critics": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Retourne un film avec ses critiques",
+                "operationId": "64df4d038d8d093fe933f03f5a0952c4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du film",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Film avec critiques",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "ACADEMY DINOSAUR"
+                                        },
+                                        "release_year": {
+                                            "type": "integer",
+                                            "example": 2006
+                                        },
+                                        "length": {
+                                            "type": "integer",
+                                            "example": 86
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "A Epic Drama of a Feminist..."
+                                        },
+                                        "rating": {
+                                            "type": "string",
+                                            "example": "PG"
+                                        },
+                                        "language_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "special_features": {
+                                            "type": "string",
+                                            "example": "Deleted Scenes,Behind the Scenes"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": "",
+                                            "nullable": true
+                                        },
+                                        "critics": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "film_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "score": {
+                                                        "type": "integer",
+                                                        "example": 4
+                                                    },
+                                                    "comment": {
+                                                        "type": "string",
+                                                        "example": "Très bon film"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Film introuvable"
+                    }
+                }
+            }
+        },
+        "/films/{film}/average-score": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Obtenir la moyenne des scores d'un film",
+                "description": "Retourne la moyenne des scores pour un film particulier basé sur ses critiques.",
+                "operationId": "852a708d585bf0301b7cdd4bdf2d7fae",
+                "parameters": [
+                    {
+                        "name": "film",
+                        "in": "path",
+                        "description": "ID du film",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Moyenne calculée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "film_id": {
+                                            "type": "integer",
+                                            "example": 5
+                                        },
+                                        "average_score": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 7.5
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Film introuvable"
+                    }
+                }
+            }
+        },
+        "/films/search": {
+            "get": {
+                "tags": [
+                    "Films"
+                ],
+                "summary": "Recherche de films",
+                "description": "Recherche des films par titre, description ou autres critères.",
+                "operationId": "dab1b0610115e7958c15f5ce057bc479",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Terme de recherche",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "DINOSAUR"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Résultats de recherche paginés",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "ACADEMY DINOSAUR"
+                                                    },
+                                                    "release_year": {
+                                                        "type": "integer",
+                                                        "example": 2006
+                                                    },
+                                                    "length": {
+                                                        "type": "integer",
+                                                        "example": 86
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "A Epic Drama of a Feminist..."
+                                                    },
+                                                    "rating": {
+                                                        "type": "string",
+                                                        "example": "PG"
+                                                    },
+                                                    "language_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "special_features": {
+                                                        "type": "string",
+                                                        "example": "Deleted Scenes,Behind the Scenes"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 5
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 15
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 72
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Créer un utilisateur",
+                "operationId": "a1fce870c566eb5fc0cf3178ec5d2fed",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "login": {
+                                        "type": "string",
+                                        "example": "bdje"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "bdje@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Secret123!"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Bernadin"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Dje"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "login": {
+                                            "type": "string",
+                                            "example": "bdje"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "bdje@example.com"
+                                        },
+                                        "first_name": {
+                                            "type": "string",
+                                            "example": "Bernadin"
+                                        },
+                                        "last_name": {
+                                            "type": "string",
+                                            "example": "Dje"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Mettre à jour un utilisateur",
+                "operationId": "ddfe232db1870b82493bf8bd25596d37",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "login": {
+                                        "type": "string",
+                                        "example": "btra"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "btra@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "NewSecret123!"
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Bi"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Tra"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur mis à jour",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "login": {
+                                            "type": "string",
+                                            "example": "btra"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "btra@example.com"
+                                        },
+                                        "first_name": {
+                                            "type": "string",
+                                            "example": "Bi"
+                                        },
+                                        "last_name": {
+                                            "type": "string",
+                                            "example": "Tra"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Utilisateur introuvable"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                }
+            }
+        },
+        "/users/{id}/preferred-language": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Recevoir le langage préféré d’un utilisateur",
+                "description": "Analyse les critiques de l'utilisateur pour déterminer son langage le plus utilisé.",
+                "operationId": "bd61a3178a50df49392d23c1f975f7e7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Langage préféré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "language": {
+                                            "type": "string",
+                                            "example": "fr"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Utilisateur introuvable"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Critics",
+            "description": "Critics"
+        },
+        {
+            "name": "Films",
+            "description": "Films"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}
